@@ -1,6 +1,9 @@
 package com.cxy.quartz.demo;
 
 import com.cxy.quartz.job.HelloJob;
+import com.cxy.quartz.job_listener.MyJobListener;
+import com.cxy.quartz.scheduler_listener.MySchedListener;
+import com.cxy.quartz.trigger_listener.MyTriggerListener;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
@@ -11,6 +14,13 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.*;
 import static org.quartz.CronScheduleBuilder.*;
 import static org.quartz.DateBuilder.*;
+
+import static org.quartz.JobKey.*;
+import static org.quartz.impl.matchers.KeyMatcher.*;
+import static org.quartz.impl.matchers.GroupMatcher.*;
+import static org.quartz.impl.matchers.AndMatcher.*;
+import static org.quartz.impl.matchers.OrMatcher.*;
+import static org.quartz.impl.matchers.EverythingMatcher.*;
 
 /**
  * @author 陈翔宇
@@ -83,8 +93,24 @@ public class CornTest {
                 .forJob("myJob", "group1")
                 .build();
 
+        //作业监听器
+//        MyJobListener myJobListener = new MyJobListener();
+//        sched.getListenerManager().addJobListener(myJobListener, allJobs());
+        //触发器监听器
+//        MyTriggerListener myTriggerListener = new MyTriggerListener();
+//        sched.getListenerManager().addTriggerListener(myTriggerListener, allJobs());
+
+        //调度器监听器
+        //添加调度程序监听器：
+//        MySchedListener mySchedListener = new MySchedListener();
+//        sched.getListenerManager().addSchedulerListener(mySchedListener);
+//        //删除 SchedulerListener：
+//        sched.getListenerManager().removeSchedulerListener(mySchedListener);
 
         // Tell quartz to schedule the job using our trigger
         sched.scheduleJob(myJobKey, trigger);
+
+
+
     }
 }
